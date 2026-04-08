@@ -3,7 +3,6 @@ using UnityEngine;
 public class TargetSpawner : MonoBehaviour
 {
     public GameObject targetPrefab;
-    public float spawnInterval = 1.5f;
 
     public float xRange = 6f;
     public float minY = 1f;
@@ -19,16 +18,15 @@ public class TargetSpawner : MonoBehaviour
     {
         if (roundManager == null) return;
 
-        // 🔴 stop spawning when round is not active
         if (!roundManager.roundActive)
         {
-            spawnTimer = 0f; // reset timer
+            spawnTimer = 0f;
             return;
         }
 
         spawnTimer += Time.deltaTime;
 
-        if (spawnTimer >= spawnInterval)
+        if (spawnTimer >= roundManager.currentSpawnInterval)
         {
             SpawnTarget();
             spawnTimer = 0f;
@@ -42,6 +40,15 @@ public class TargetSpawner : MonoBehaviour
         float z = Random.Range(minZ, maxZ);
 
         Vector3 spawnPosition = new Vector3(x, y, z);
-        Instantiate(targetPrefab, spawnPosition, Quaternion.identity);
+        GameObject newTarget = Instantiate(targetPrefab, spawnPosition, Quaternion.identity);
+
+        Target targetScript = newTarget.GetComponent<Target>();
+        if (targetScript != null)
+        {
+            targetScript.moveSpeed = roundManager.currentTargetSpeed;
+            targetScript.spawnTime = Time.time;
+        }
+
+        newTarget.transform.localScale = Vector3.one * roundManager.currentTargetScale;
     }
 }

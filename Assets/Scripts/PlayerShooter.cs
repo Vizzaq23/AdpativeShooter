@@ -4,22 +4,24 @@ public class PlayerShooter : MonoBehaviour
 {
     public Camera playerCamera;
     public float shootDistance = 100f;
-    public PerformanceTracker tracker;
+    public RoundManager roundManager;
 
     void Update()
     {
+        if (roundManager == null) return;
+        if (!roundManager.roundActive) return;
+
         if (Input.GetMouseButtonDown(0))
         {
-            tracker.RegisterShot();
+            roundManager.RegisterShot();
             Shoot();
-
-            Debug.Log("Accuracy: " + tracker.GetAccuracy() + "%");
-            Debug.Log("Average Reaction Time: " + tracker.GetAverageReactionTime() + " seconds");
         }
     }
 
     void Shoot()
     {
+        if (playerCamera == null) return;
+
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -29,8 +31,7 @@ public class PlayerShooter : MonoBehaviour
 
             if (target != null)
             {
-                tracker.RegisterHit();
-                target.Hit(tracker);
+                target.Hit();
             }
         }
     }

@@ -3,15 +3,17 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public PerformanceTracker tracker;
+    public RoundManager roundManager;
     public TextMeshProUGUI statsText;
 
     void Update()
     {
+        if (roundManager == null || statsText == null) return;
+
         statsText.text =
-            "Shots: " + tracker.totalShots +
-            "\nHits: " + tracker.hits +
-            "\nAccuracy: " + tracker.GetAccuracy().ToString("F1") + "%" +
-            "\nAvg Reaction Time: " + tracker.GetAverageReactionTime().ToString("F2") + "s";
+            "Shots: " + roundManager.shotsFired +
+            "\nHits: " + roundManager.targetsHit +
+            "\nAccuracy: " + (roundManager.currentAccuracy * 100f).ToString("F1") + "%" +
+            "\nAvg Reaction Time: " + roundManager.averageReactionTime.ToString("F2") + "s";
     }
 }

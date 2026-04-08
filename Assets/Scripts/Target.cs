@@ -1,23 +1,60 @@
 using UnityEngine;
+using System.Collections;
 
 public class Target : MonoBehaviour
 {
-    private float spawnTime;
-    public float lifetime = 3f; // Time before the target disappears    
+    public float spawnTime;
+    public float lifetime = 3f;
+    public float moveSpeed = 2f;
+
+    private RoundManager roundManager;
+    private bool isHit = false;
 
     void Start()
     {
-        spawnTime = Time.time;
+        roundManager = FindObjectOfType<RoundManager>();
+
+        if (spawnTime <= 0f)
+        {
+            spawnTime = Time.time;
+        }
+
         Destroy(gameObject, lifetime);
     }
 
-    public void Hit(PerformanceTracker tracker)
+    void Update()
     {
-        float reactionTime = Time.time - spawnTime;
+        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+    }
 
-        tracker.RegisterReactionTime(reactionTime);
+    public void Hit()
+    {
+        if (isHit) return;
+        isHit = true;
 
-        Debug.Log("Target hit! Reaction Time: " + reactionTime + " seconds");
+        if (roundManager != null && roundManager.roundActive)
+        {
+            float reactionTime = Time.time - spawnTime;
+            roundManager.RegisterHit(reactionTime);
+
+            Debug.Log("Target hit! Reaction Time: " + reactionTime + " seconds");
+        }
+
+        StartCoroutine(HitEffect());
+    }
+
+    IEnumerator HitEffect()
+    {
+        Renderer rend = GetComponent<Renderer>();
+
+        if (rend != null)
+        {
+            rend.material.color = Color.red;
+        }
+
+        transform.localScale *= 0.5f;
+
+        yield return new WaitForSeconds(0.08f);
 
         Destroy(gameObject);
     }
