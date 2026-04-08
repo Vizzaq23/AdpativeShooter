@@ -89,8 +89,17 @@ The adaptive system works in the following steps:
 6. Adjust gameplay parameters in real time
 7. Smooth transitions so difficulty changes feel natural
 
-### Simplified Formula
+   
+##  How to Run the Game
 
-```csharp
-difficultyScore = (accuracyScore * 0.6f) + (reactionScore * 0.4f);
+### Option 1: Run in Unity (Recommended)
+
+1. Clone the repository:
+git clone https://github.com/Vizzaq23/AdaptiveShooter.git
+open in unity
+play
+
+
+
+
 
