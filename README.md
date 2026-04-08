@@ -92,12 +92,14 @@ The adaptive system works in the following steps:
    
 ##  How to Run the Game
 
-### Option 1: Run in Unity (Recommended)
+### Option 1: Run in Unity 
 
 1. Clone the repository:
 git clone https://github.com/Vizzaq23/AdaptiveShooter.git
 open in unity
-play
+
+###Option 2: 
+https://vizzaq23.itch.io/adaptive-shooter
 
 
 
