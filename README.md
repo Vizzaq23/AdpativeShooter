@@ -1,107 +1,56 @@
-# AI Aim Trainer (Unity)
+# Adaptive Combat Trainer — Unity / C#
 
-An adaptive 3D aim trainer built in Unity and C# that adjusts difficulty in real time based on player performance.
-This project was designed to feel more intelligent than a basic target shooter by tracking player accuracy and reaction time, then using those metrics to dynamically adjust target spawn rate, movement speed, and target size during gameplay. The result is a more responsive and personalized training experience.
+A 3D aim-training prototype that adjusts target difficulty using player accuracy and time to hit a target. Built with Unity and C# to explore feedback loops, game-state management, and responsive UI.
 
----
+**[Play the published prototype](https://vizzaq23.itch.io/adaptive-shooter) · [Latest development demo](https://www.quintinvizza.dev/demos/trainer-20260911.mp4) · [Portfolio](https://www.quintinvizza.dev/#projects)**
 
-## Demo / Screenshots
+> Version note: this repository's current default branch contains the original prototype. The September 2026 portfolio video shows a newer local development build with Flick/Tracking sessions and coaching feedback; those newer features are not all present in this checkout.
 
-### Home Screen and Start Screen
-<img width="817" height="406" alt="HomeScreenSS" src="https://github.com/user-attachments/assets/6ad03689-fd20-4312-be20-119edcd90544" />
-<img width="823" height="406" alt="image" src="https://github.com/user-attachments/assets/22b39675-0026-4881-94ee-134e46be26c2" />
+## Prototype features
 
+- Timed aim-training rounds with live statistics and end-of-round feedback.
+- Difficulty changes affecting target spawn interval, movement speed, and size.
+- Gradual interpolation between difficulty values.
+- Main-menu, start, restart, and return-to-menu flows.
+- Separate aim-training and enemy-sandbox scenes.
 
-### Gameplay
-<img width="820" height="409" alt="image" src="https://github.com/user-attachments/assets/21c7f767-6a00-4af9-bd63-f27bbd925e82" />
+## How difficulty works
 
+`RoundManager.cs` calculates accuracy as hits divided by shots. It combines that value with the average recorded time for successful hits, using a 60/40 weighting, then interpolates toward new target parameters.
 
-### Adaptive Difficulty in Action
-<img width="806" height="392" alt="image" src="https://github.com/user-attachments/assets/eecebd1d-5ddb-45bd-a352-6eb5e0dfa2f4" />
+The implementation is a deterministic heuristic, not a trained machine-learning model. The timing metric is an in-game time-to-hit measure; it is not a controlled measurement of human reaction time. The displayed skill categories are application rules, not validated player rankings.
 
+## Run the published source
 
-### End Screen Stats
-<img width="818" height="412" alt="image" src="https://github.com/user-attachments/assets/d301f9d0-9c18-480e-8c7e-d627ab277954" />
+The committed project version is **Unity 6000.4.1f1**; check [ProjectVersion.txt](ProjectSettings/ProjectVersion.txt) before opening a later revision.
 
+```sh
+git clone https://github.com/Vizzaq23/AdpativeShooter.git
+```
 
----
+1. Add the cloned folder in Unity Hub and open it with the matching editor.
+2. Allow Unity to import assets and packages.
+3. Open `Assets/Scenes/MainMenu.unity`.
+4. Press **Play** and start a training round.
 
-## Features
+The repository name is spelled `AdpativeShooter`; the clone URL above matches the actual repository.
 
-- Real-time adaptive difficulty system
-- Tracks player accuracy and average reaction time
-- Dynamically adjusts:
-  - target spawn interval
-  - target movement speed
-  - target size
-- Smooth difficulty scaling using interpolation
-- Hit feedback system for better game feel
-- End-of-round stats screen
-- Skill rating based on performance
-- Restart and home screen flow
+## Code map
 
----
+| Path | Responsibility |
+| --- | --- |
+| `Assets/Scripts/RoundManager.cs` | Round lifecycle, statistics, and difficulty |
+| `Assets/Scripts/PlayerShooter.cs` | Player shooting |
+| `Assets/Scripts/TargetSpawner.cs` | Target creation |
+| `Assets/Scripts/MovingTarget.cs` | Target movement |
+| `Assets/Scripts/UIManager.cs` | Interface updates |
+| `Assets/Scenes/` | Main menu, trainer, and enemy sandbox |
 
-## Tech Stack
+## Prototype screenshots
 
-- **Engine:** Unity
-- **Language:** C#
-- **Core Concepts:** Game state management, adaptive systems, performance tracking, UI systems, object-oriented scripting
+![Aim trainer gameplay](https://github.com/user-attachments/assets/21c7f767-6a00-4af9-bd63-f27bbd925e82)
+![End-of-round statistics](https://github.com/user-attachments/assets/d301f9d0-9c18-480e-8c7e-d627ab277954)
 
----
+## Verification
 
-## How It Works
-
-The game continuously measures player performance during each round using two main metrics:
-
-- **Accuracy** = targets hit / shots fired
-- **Average reaction time** = total reaction time / successful hits
-
-These values are converted into performance scores and combined into a weighted difficulty score.
-
-### Difficulty Logic
-- Higher accuracy increases difficulty
-- Faster reaction time increases difficulty
-- Lower accuracy or slower reaction time decreases difficulty
-
-The difficulty score is then used to modify:
-- how quickly new targets spawn
-- how fast targets move
-- how small the targets appear
-
-To prevent the game from feeling too abrupt or unfair, smoothing is applied so difficulty changes happen gradually instead of instantly.
-
-This creates a system that feels more adaptive and responsive to the player over time.
-
----
-
-## Adaptive Difficulty Algorithm
-
-The adaptive system works in the following steps:
-
-1. Track player shots fired
-2. Track targets hit
-3. Record reaction time whenever a target is hit
-4. Calculate:
-   - current accuracy
-   - average reaction time
-5. Convert those into a weighted difficulty score
-6. Adjust gameplay parameters in real time
-7. Smooth transitions so difficulty changes feel natural
-
-   
-##  How to Run the Game
-
-### Option 1: Run in Unity 
-
-1. Clone the repository:
-git clone https://github.com/Vizzaq23/AdaptiveShooter.git
-open in unity
-
-###Option 2: 
-https://vizzaq23.itch.io/adaptive-shooter
-
-
-
-
-
+A useful manual check is to start a round, confirm shots/hits update, observe difficulty changes, reach the results screen, and restart. This README does not claim an automated test suite for the published prototype.
