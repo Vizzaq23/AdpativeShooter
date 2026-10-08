@@ -1,4 +1,29 @@
-# Adaptive Combat Trainer — Unity / C#
+<!-- README presentation: Vizzaq23 portfolio palette -->
+<p align="center">
+  <a href="https://github.com/Vizzaq23"><img src="https://img.shields.io/badge/Vizzaq23%20%C2%B7%20UNITY%20PROTOTYPE-101722?style=flat-square&amp;labelColor=101722&amp;color=D7B877" alt="Vizzaq23 · UNITY PROTOTYPE" /></a>
+</p>
+
+<h1 align="center">Adaptive Combat Trainer</h1>
+
+<p align="center"><strong>An aim-training prototype that adapts to how you play.</strong></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Unity-101722?style=flat-square&amp;labelColor=101722&amp;color=85CFE8" alt="Unity" />
+  <img src="https://img.shields.io/badge/C%23-101722?style=flat-square&amp;labelColor=101722&amp;color=D7B877" alt="C#" />
+  <img src="https://img.shields.io/badge/Adaptive%20difficulty-101722?style=flat-square&amp;labelColor=101722&amp;color=B8A1E3" alt="Adaptive difficulty" />
+</p>
+
+<p align="center">
+  <a href="https://vizzaq23.itch.io/adaptive-shooter">Play prototype</a> · <a href="https://www.quintinvizza.dev/demos/trainer-20260911.mp4">Newer development demo</a> · <a href="https://quintinvizza.dev">Portfolio</a> · <a href="https://github.com/Vizzaq23">GitHub profile</a>
+</p>
+
+<p align="center">
+  <a href="#overview">Overview</a> · <a href="#prototype-features">Features</a> · <a href="#how-difficulty-works">How it works</a> · <a href="#run-the-published-source">Quick start</a> · <a href="#prototype-screenshots">Screenshots</a>
+</p>
+
+<img src="https://raw.githubusercontent.com/Vizzaq23/Vizzaq23/main/assets/divider.svg" width="100%" alt="" />
+
+## Overview
 
 A 3D aim-training prototype that adjusts target difficulty using player accuracy and time to hit a target. Built with Unity and C# to explore feedback loops, game-state management, and responsive UI.
 
@@ -54,3 +79,7 @@ The repository name is spelled `AdpativeShooter`; the clone URL above matches th
 ## Verification
 
 A useful manual check is to start a round, confirm shots/hits update, observe difficulty changes, reach the results screen, and restart. This README does not claim an automated test suite for the published prototype.
+
+<img src="https://raw.githubusercontent.com/Vizzaq23/Vizzaq23/main/assets/divider.svg" width="100%" alt="" />
+
+<p align="center"><sub>Built by <a href="https://github.com/Vizzaq23">Quintin Vizza</a> · <a href="https://quintinvizza.dev">Explore my work</a></sub></p>
